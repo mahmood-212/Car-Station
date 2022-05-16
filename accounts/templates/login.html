@@ -1,10 +1,14 @@
-{% comment %} {% load bootstrap4  %} {% endcomment %}
+{% load static %}
+{% load bootstrap4  %}
+<html dir="rtl" lang="ar">
+<link rel="stylesheet" href="{% static 'css/bootstrap.rtl.css' %}">
  <div class="container mt-5">
  <h1><center> تسجيل الدخول</center></h1>
- <form method="post">
+ <form class="form" method="post">
         {% csrf_token %}
-        {{form}}
+        {% bootstrap_form form %}
             <button type="submit" class="btn btn-primary mt-3">تسجيل الدخول</button>
  </form>
  <h6 class="mt-2">ليس لديك حساب: <a href="{% url 'accounts:sinup' %}">أنشا حسابا</a></h6>
  </div>
+</html>

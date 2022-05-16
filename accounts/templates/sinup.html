@@ -1,9 +1,14 @@
+{% load static %}
+{% load bootstrap4  %}
+<html dir="rtl" lang="ar">
+<link rel="stylesheet" href="{% static 'css/bootstrap.rtl.css' %}">
 <div class="container mt-5">
     <h1><center>create account</center></h1>
     <form method="post">
            {% csrf_token %}
-           {{form}}
+           {% bootstrap_form form %}
                <button type="submit" class="btn btn-primary mt-3">انشاء حساب</button>
     </form>
     <h6 class="mt-2">لديك حساب: <a href="{% url 'accounts:login' %}">تسجيل الدخول</a></h6>
     </div>
+</html>
