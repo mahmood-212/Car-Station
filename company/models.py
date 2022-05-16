@@ -1,4 +1,3 @@
-from xmlrpc.client import TRANSPORT_ERROR
 from django.db import models
 
 # Create your models here.
