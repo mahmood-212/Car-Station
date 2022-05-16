@@ -6,8 +6,8 @@ from invoice.models import Invoice
 # Create your models here.
 
 class RequiremtsBranch(models.Model):
-    branch = models.ForeignKey(CompanyBranch, related_name='branchs', on_delete=models.CASCADE)
-    employee= models.ForeignKey(Employee, related_name='employees', on_delete=models.CASCADE)
+    branch = models.ForeignKey(CompanyBranch, related_name='branch', on_delete=models.CASCADE)
+    employee= models.ForeignKey(Employee, related_name='employee', on_delete=models.CASCADE)
     things_need_name = models.CharField(max_length=255, blank=True, null=True)
     things_need_price = models.FloatField(blank=True, null=True)
 

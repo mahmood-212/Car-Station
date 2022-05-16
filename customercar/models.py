@@ -21,8 +21,8 @@ class CustomerCar(models.Model):
 
 
 
-class CarPart:
-    customer_car = models.ForeignKey(CustomerCar, related_name='customercars', on_delete=models.CASCADE)
+class CarPart(models.Model):
+    customer_car = models.ForeignKey(CustomerCar, related_name='customercar', on_delete=models.CASCADE)
     part_name = models.CharField(max_length=255, blank=True, null=True)
     part_price = models.IntegerField(blank=True, null=True)
     part_invoice = models.ImageField(blank=True, null=True)
