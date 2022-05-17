@@ -38,13 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "bootstrap4",
-    'car_station_app',
     'accounts',
     'company',
     'customercar',
     'consumed',
     'employee',
-    'invoice'
+    'invoice',
 ]
 
 MIDDLEWARE = [
