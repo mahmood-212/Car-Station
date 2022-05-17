@@ -36,5 +36,7 @@ def new_CompanyBranch(request):
 
 @login_required
 def company_details(request):
-    if request.method == 'POST':
-        company = Company.objects.get()
+    company = Company.objects.all()
+
+    return render(request, 'company_details.html', {'company':company})
+
