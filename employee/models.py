@@ -1,15 +1,11 @@
 from django.db import models
 from company.models import CompanyBranch
-<<<<<<< HEAD
-from accounts.models import User
-=======
+# from accounts.models import User
 from django.contrib.auth.models import User
->>>>>>> 1f39370ae3c91543867fe3ab636b8c7dba9fee18
 
 # Create your models here.
 class Employee(models.Model):
     user = models.ForeignKey(User,verbose_name=("المستخدم"), on_delete=models.CASCADE)
-<<<<<<< HEAD
     branch_name = models.ForeignKey(CompanyBranch, related_name='companybranches', verbose_name="اسم الفرع", on_delete=models.CASCADE)
     employee_name = models.CharField(max_length=255, verbose_name="اسم الموظف", blank=True, null=True)
     employee_phone = models.IntegerField(verbose_name="هاتف الموظف", blank=True, null=True)
@@ -22,14 +18,12 @@ class Employee(models.Model):
         verbose_name = 'الموظف'
         verbose_name_plural = 'الموظفين'
 
-=======
     branch_name = models.ForeignKey(CompanyBranch, related_name='companybranch', on_delete=models.CASCADE)
     employee_name = models.CharField(max_length=255, blank=True, null=True)
     employee_phone = models.IntegerField(blank=True, null=True)
     employee_identity = models.IntegerField(blank=True, null=True)
     employee_email = models.EmailField(blank=True, null=True)
     employee_salary = models.FloatField(blank=True, null=True)
->>>>>>> 1f39370ae3c91543867fe3ab636b8c7dba9fee18
 
     def __str__(self):
         return f"{self.employee_name}"
