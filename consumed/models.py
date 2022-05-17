@@ -24,7 +24,7 @@ class RequiremtsBranch(models.Model):
 class OutCome(models.Model):
     user = models.ForeignKey(User,verbose_name=("المستخدم"), on_delete=models.CASCADE)
     employee_outcome= models.ForeignKey(Employee, related_name='employees', on_delete=models.CASCADE)
-    requiremtsbranch = models.ForeignKey(Employee, related_name='requiremtsbranches', on_delete=models.CASCADE)
+    requiremtsbranch = models.ForeignKey(RequiremtsBranch, related_name='requiremtsbranches', on_delete=models.CASCADE)
 
     class Meta():
         verbose_name = 'مصاريف الفرع'

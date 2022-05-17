@@ -15,12 +15,6 @@ class Company(models.Model):
     class Meta():
         verbose_name = 'الشركة'
         verbose_name_plural = 'الشركات'
-    company_name = models.CharField(max_length=200, blank=True, null=True)
-    company_phone = models.IntegerField(blank=True, null=True)
-    company_city = models.CharField(max_length=200, blank=True, null=True)
-    company_address =models.URLField(blank=True, null=True)
-    company_code = models.CharField(max_length=255, blank=True, null=True)
-    company_logo = models.ImageField(blank=True, null=True)
 
     def __str__(self):
         return self.company_name
