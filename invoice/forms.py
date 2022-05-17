@@ -5,3 +5,4 @@ class Invoice_Form(forms.ModelForm):
     class Mete :
         model = Invoice
         fields = '__all__'
+        exclude = ('user',)

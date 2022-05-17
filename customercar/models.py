@@ -1,9 +1,12 @@
 from django.db import models
 from employee.models import Employee
 from company.models import CompanyBranch
+from django.contrib.auth.models import User
+
 # Create your models here.
 
 class CustomerCar(models.Model):
+    user = models.ForeignKey(User,verbose_name=("المستخدم"), on_delete=models.CASCADE)
     employee = models.ForeignKey(Employee, related_name='emplyees', on_delete=models.CASCADE)
     branch = models.ForeignKey(CompanyBranch, related_name='branches', on_delete=models.CASCADE)
     owner_car_name = models.CharField(max_length=255, blank=True, null=True)
@@ -22,6 +25,7 @@ class CustomerCar(models.Model):
 
 
 class CarPart(models.Model):
+    user = models.ForeignKey(User,verbose_name=("المستخدم"), on_delete=models.CASCADE)
     customer_car = models.ForeignKey(CustomerCar, related_name='customercar', on_delete=models.CASCADE)
     part_name = models.CharField(max_length=255, blank=True, null=True)
     part_price = models.IntegerField(blank=True, null=True)

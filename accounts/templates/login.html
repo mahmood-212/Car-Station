@@ -7,7 +7,9 @@
  <form class="form" method="post">
         {% csrf_token %}
         {% bootstrap_form form %}
+        {% buttons %}
             <button type="submit" class="btn btn-primary mt-3">تسجيل الدخول</button>
+        {% endbuttons %}
  </form>
  <h6 class="mt-2">ليس لديك حساب: <a href="{% url 'accounts:sinup' %}">أنشا حسابا</a></h6>
  </div>
