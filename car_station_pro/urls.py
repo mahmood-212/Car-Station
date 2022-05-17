@@ -19,7 +19,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/',include('accounts.urls',namespace='namespace'))
+    path('accounts/',include('accounts.urls',namespace='namespace')),
+    path('company/',include('company.urls',namespace='company')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
