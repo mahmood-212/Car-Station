@@ -33,10 +33,10 @@ def new_CompanyBranch(request):
         form.fields['company_name'].queryset = Company.objects.filter(user=request.user)
     return render(request, 'new/CompanyBranch_Form.html',{'form':form})
 
-
 @login_required
 def company_details(request):
     company = Company.objects.all()
 
     return render(request, 'company_details.html', {'company':company})
+
 
