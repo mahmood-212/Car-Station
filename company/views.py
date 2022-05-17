@@ -19,16 +19,17 @@ def new_Company(request):
     return render(request, 'new/Company_Form.html',{'form':form})
 
 @login_required
-def new_CompanyBranch(request):
+def new_CompanyBranch(request, id):
+    company = Company.objects.get(user=request.user,id=id)
     if request.method=='POST':
         form = CompanyBranch_Form(request.POST)
         if form.is_valid():
             CompBranch = form.save(commit=False)
             CompBranch.user = request.user
+            CompBranch.company_name = company
             CompBranch.save()
             # return redirect(reverse(''))
 
     else:
         form = CompanyBranch_Form()
-        form.fields['company_name'].queryset = Company.objects.filter(user=request.user)
     return render(request, 'new/CompanyBranch_Form.html',{'form':form})
