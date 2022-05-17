@@ -1,0 +1,19 @@
+{% load static %}
+<html dir="rtl" lang="ar">
+<link rel="stylesheet" href="{% static 'css/bootstrap.rtl.css' %}">
+ <div class="container mt-5">
+    {% for CompanyBranch  in CompanyBranch %}
+        {{CompanyBranch.company_name}}
+        <br>
+        {{CompanyBranch.branch_name}}
+        <br>
+        {{CompanyBranch.branch_phone}}
+        <br>
+        {{CompanyBranch.branch_code}}
+        <br>
+        {{CompanyBranch.branch_city}}
+        <br>
+        {{CompanyBranch.branch_address}}
+    {% endfor %}
+</div>
+</html>
