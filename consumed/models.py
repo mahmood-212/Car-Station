@@ -2,8 +2,7 @@ from django.db import models
 from company.models import CompanyBranch
 from employee.models import Employee
 from invoice.models import Invoice
-from accounts.models import User
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 class RequiremtsBranch(models.Model):

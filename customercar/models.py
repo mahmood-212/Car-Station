@@ -1,8 +1,7 @@
 from django.db import models
 from employee.models import Employee
 from company.models import CompanyBranch
-from accounts.models import User
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 class CustomerCar(models.Model):

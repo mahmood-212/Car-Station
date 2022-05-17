@@ -20,7 +20,7 @@ class Invoice(models.Model):
         verbose_name = 'الفاتورة'
         verbose_name_plural = 'الفواتير'
     def __str__(self):
-        return self.total_cost
+        return str(self.total_cost)
 
 
  

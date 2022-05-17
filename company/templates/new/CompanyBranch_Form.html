@@ -1,0 +1,15 @@
+{% load static %}
+{% load bootstrap4  %}
+<html dir="rtl" lang="ar">
+<link rel="stylesheet" href="{% static 'css/bootstrap.rtl.css' %}">
+ <div class="container mt-5">
+ <h1><center>اضافة فرع</center></h1>
+ <form class="form" method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+            <button type="submit" class="btn btn-primary mt-3">إضاف</button>
+        {% endbuttons %}
+ </form>
+ </div>
+</html>
