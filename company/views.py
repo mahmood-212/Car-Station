@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .forms import Company_Form,CompanyBranch_Form
 from .models import Company,CompanyBranch
@@ -17,22 +17,24 @@ def new_Company(request):
     else:
         form = Company_Form()
     return render(request, 'new/Company_Form.html',{'form':form})
+
 @login_required
-def CompanyBranch_detail(request, id):
-    CompanyBranch_detail = CompanyBranch.objects.filter(id=id, user=request.user)
-    return render(request, 'CompanyBranch_detail.html', context={'CompanyBranch':CompanyBranch_detail})
-@login_required
-def new_CompanyBranch(request, id):
-    company = Company.objects.get(user=request.user,id=id)
+def new_CompanyBranch(request):
     if request.method=='POST':
         form = CompanyBranch_Form(request.POST)
         if form.is_valid():
             CompBranch = form.save(commit=False)
             CompBranch.user = request.user
-            CompBranch.company_name = company
             CompBranch.save()
             # return redirect(reverse(''))
 
     else:
         form = CompanyBranch_Form()
+        form.fields['company_name'].queryset = Company.objects.filter(user=request.user)
     return render(request, 'new/CompanyBranch_Form.html',{'form':form})
+
+
+@login_required
+def company_details(request):
+    if request.method == 'POST':
+        company = Company.objects.get()
