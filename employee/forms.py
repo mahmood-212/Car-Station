@@ -5,3 +5,4 @@ class Employee_Form(forms.ModelForm):
     class Mete :
         model = Employee
         fields = '__all__'
+        exclude = ('user',)

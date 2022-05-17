@@ -1,11 +1,17 @@
 from django.db import models
 from employee.models import Employee
 from company.models import CompanyBranch
+<<<<<<< HEAD
 from accounts.models import User
+=======
+from django.contrib.auth.models import User
+
+>>>>>>> 1f39370ae3c91543867fe3ab636b8c7dba9fee18
 # Create your models here.
 
 class CustomerCar(models.Model):
     user = models.ForeignKey(User,verbose_name=("المستخدم"), on_delete=models.CASCADE)
+<<<<<<< HEAD
     employee = models.ForeignKey(Employee, related_name='emplyees', verbose_name="اسم الموظف", on_delete=models.CASCADE)
     branch = models.ForeignKey(CompanyBranch, related_name='branches', verbose_name="اسم الفرع", on_delete=models.CASCADE)
     owner_car_name = models.CharField(max_length=255, verbose_name="اسم مالك السيارة", blank=True, null=True)
@@ -17,6 +23,19 @@ class CustomerCar(models.Model):
     date_entery = models.DateTimeField(auto_now=True, verbose_name="تاريخ استلام المركبة")
     car_under_process = models.BooleanField(default=True, verbose_name="السيارة في الصيانة", blank=True, null=True)
     car_ready = models.BooleanField(default=False, verbose_name="السيارة جاهزه للاستلام", blank=True, null=True)
+=======
+    employee = models.ForeignKey(Employee, related_name='emplyees', on_delete=models.CASCADE)
+    branch = models.ForeignKey(CompanyBranch, related_name='branches', on_delete=models.CASCADE)
+    owner_car_name = models.CharField(max_length=255, blank=True, null=True)
+    owner_car_phone = models.IntegerField(blank=True, null=True)
+    car_company = models.CharField(max_length=255, blank=True, null=True)
+    owner_identity = models.IntegerField(blank=True, null=True)
+    car_plate = models.CharField(max_length=255, blank=True, null=True)
+    car_color = models.CharField(max_length=255, blank=True, null=True)
+    date_entery = models.DateTimeField(auto_now=True)
+    car_under_process = models.BooleanField(default=True, blank=True, null=True)
+    car_ready = models.BooleanField(default=False, blank=True, null=True)
+>>>>>>> 1f39370ae3c91543867fe3ab636b8c7dba9fee18
 
     class Meta():
         verbose_name = 'سيارة العميل'
@@ -28,6 +47,7 @@ class CustomerCar(models.Model):
 
 class CarPart(models.Model):
     user = models.ForeignKey(User,verbose_name=("المستخدم"), on_delete=models.CASCADE)
+<<<<<<< HEAD
     customer_car = models.ForeignKey(CustomerCar, related_name='customercar', verbose_name=" رقم السيارة العميل", on_delete=models.CASCADE)
     part_name = models.CharField(max_length=255,  verbose_name=" اسم القطعة الغيار", blank=True, null=True)
     part_price = models.IntegerField(verbose_name=" سعر قطعة الغيار", blank=True, null=True)
@@ -37,6 +57,12 @@ class CarPart(models.Model):
         verbose_name = 'قطع غيار السيارة'
         verbose_name_plural = 'قطع غيار السيارات'
 
+=======
+    customer_car = models.ForeignKey(CustomerCar, related_name='customercar', on_delete=models.CASCADE)
+    part_name = models.CharField(max_length=255, blank=True, null=True)
+    part_price = models.IntegerField(blank=True, null=True)
+    part_invoice = models.ImageField(blank=True, null=True)
+>>>>>>> 1f39370ae3c91543867fe3ab636b8c7dba9fee18
 
     def __str__(self):
         return f"{self.part_name}"
