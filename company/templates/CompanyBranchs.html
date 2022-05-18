@@ -1,4 +1,4 @@
 {% for branch in branch %}
-    <a href="{% url 'company:branches' branch.id %}">{{branch.company_name}}</a>
+    <a href="{% url 'company:companybranch_detail' branch.id %}">{{branch.company_name}}</a>
     {% comment %} {{branch.company_name}} {% endcomment %}
 {% endfor %}

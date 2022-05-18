@@ -7,6 +7,11 @@ from django.core.paginator import Paginator
 
 # Create your views here.
 @login_required
+def home(request):
+    company = Company.objects.filter(user=request.user)
+    return render(request,'CompanyBranchs.html', {'branch':company})
+
+@login_required
 def CompanyBranchs(request):
     companybranch = CompanyBranch.objects.filter(user=request.user)
     paginator = Paginator(companybranch,25)
@@ -50,8 +55,8 @@ def company_delete(request, id):
     return redirect('company:new_Company')
         
 @login_required
-def CompanyBranch_detail(request, id):
-    CompanyBranch_detail = CompanyBranch.objects.filter(id=id, user=request.user)
+def CompanyBranch_detail(request,id):
+    CompanyBranch_detail = CompanyBranch.objects.filter(id=id,user=request.user)
     return render(request, 'CompanyBranch_detail.html', context={'CompanyBranch':CompanyBranch_detail})
 @login_required
 def new_CompanyBranch(request, company_id):
@@ -73,7 +78,8 @@ def new_CompanyBranch(request, company_id):
 @login_required
 def company_details(request):
     company = Company.objects.filter(user=request.user)
-    return render(request, 'company_details.html', {'company':company})
+    branches = CompanyBranch.objects.filter(user=request.user,company_name__in=company)
+    return render(request, 'company_details.html', {'company':company,'branches':branches})
 
 
 @login_required
