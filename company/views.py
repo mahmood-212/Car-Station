@@ -5,6 +5,10 @@ from .models import Company,CompanyBranch
 from django.urls import reverse
 # Create your views here.
 @login_required
+def CompanyBranchs(request):
+    companybranch = CompanyBranch.objects.filter(user=request.user)
+    return render(request,'CompanyBranchs.html', {'branch':companybranch})
+@login_required
 def new_Company(request):
     if request.method=='POST':
         form = Company_Form(request.POST, request.FILES)
@@ -43,3 +47,8 @@ def company_details(request):
     return render(request, 'company_details.html', {'company':company})
 
 
+@login_required
+def delete_CompanyBranch(request, id):
+    branch = CompanyBranch.objects.get(id=id, user=request.user)
+    branch.delete()
+    return redirect('company:CompanyBranchs')
