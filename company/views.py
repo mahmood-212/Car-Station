@@ -38,7 +38,7 @@ def new_CompanyBranch(request):
             CompBranch = form.save(commit=False)
             CompBranch.user = request.user
             CompBranch.save()
-            # return redirect(reverse(''))
+            return redirect(reverse('company:CompanyBranchs'))
 
     else:
         form = CompanyBranch_Form()
@@ -57,3 +57,18 @@ def delete_CompanyBranch(request, id):
     branch = CompanyBranch.objects.get(id=id, user=request.user)
     branch.delete()
     return redirect('company:CompanyBranchs')
+
+@login_required
+def edit_CompanyBranch(request, id):
+    branch = CompanyBranch.objects.get(id=id, user=request.user)
+    if request.method=='POST':
+        form = CompanyBranch_Form(request.POST, request.FILES, instance=branch)
+        if form.is_valid():
+            myform = form.save(commit=False)
+            myform.user = request.user
+            myform.save()
+            return redirect(reverse('company:CompanyBranchs'))
+
+    else:
+        form = CompanyBranch_Form(instance=branch)
+    return render(request, 'update/edit_CompanyBranch.html',{'form':form})
