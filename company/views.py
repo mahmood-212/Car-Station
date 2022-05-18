@@ -6,19 +6,22 @@ from django.urls import reverse
 from django.core.paginator import Paginator
 
 # Create your views here.
+
+'''
+Home page
+'''
 @login_required
 def home(request):
     company = Company.objects.filter(user=request.user)
     print(f"{company} ########################")
     return render(request,'home.html', {'company':company})
 
-@login_required
-def CompanyBranchs(request):
-    companybranch = CompanyBranch.objects.filter(user=request.user)
-    paginator = Paginator(companybranch,25)
-    page_number = request.GET.get('page')
-    page_pbj = paginator.get_page(page_number)
-    return render(request,'CompanyBranchs.html', {'branch':page_pbj})
+
+'''
+    All functions for Company models
+'''
+
+#  Add New Company 
 @login_required
 def new_Company(request):
     if request.method=='POST':
@@ -28,11 +31,19 @@ def new_Company(request):
             company.user = request.user
             company.save()
             # return redirect(reverse(''))
-
     else:
         form = Company_Form()
     return render(request, 'new/Company_Form.html',{'form':form})
 
+
+# Show all Company Details
+@login_required
+def company_details(request):
+    company = Company.objects.filter(user=request.user)
+    branches = CompanyBranch.objects.filter(user=request.user,company_name__in=company)
+    return render(request, 'company_details.html', {'company':company,'branches':branches})
+
+# Edit In Company Details 
 @login_required
 def company_update(request, id):
     company = get_object_or_404(Company, id=id, user=request.user)
@@ -47,18 +58,21 @@ def company_update(request, id):
     else:
         form = Company_Form(instance=company)
     return render(request, 'company_edit.html', {'form':form})
-        
-    
+
+
+# Company Delete Details
 @login_required
 def company_delete(request, id):
     company = get_object_or_404(Company, id=id)
     company.delete()
     return redirect('company:new_Company')
-        
-@login_required
-def CompanyBranch_detail(request,id):
-    CompanyBranch_detail = CompanyBranch.objects.filter(id=id,user=request.user)
-    return render(request, 'CompanyBranch_detail.html', context={'CompanyBranch':CompanyBranch_detail})
+
+
+'''
+   All functions for  CompanyBranch models
+'''
+
+# Add New CompanyBranch
 @login_required
 def new_CompanyBranch(request, company_id):
     company = Company.objects.get(user=request.user, id=company_id)
@@ -76,19 +90,15 @@ def new_CompanyBranch(request, company_id):
         # form.fields['company_name'].queryset = Company.objects.filter(user=request.user)
     return render(request, 'new/CompanyBranch_Form.html',{'form':form})
 
+# Show all CompanyBrache Details
 @login_required
-def company_details(request):
-    company = Company.objects.filter(user=request.user)
-    branches = CompanyBranch.objects.filter(user=request.user,company_name__in=company)
-    return render(request, 'company_details.html', {'company':company,'branches':branches})
+def CompanyBranch_detail(request,id):
+    CompanyBranch_detail = CompanyBranch.objects.filter(id=id,user=request.user)
+    return render(request, 'CompanyBranch_detail.html', context={'CompanyBranch':CompanyBranch_detail})
 
 
-@login_required
-def delete_CompanyBranch(request, id):
-    branch = CompanyBranch.objects.get(id=id, user=request.user)
-    branch.delete()
-    return redirect('company:branches')
 
+#  Edit IN CompanyBranch
 @login_required
 def edit_CompanyBranch(request, id):
     branch = CompanyBranch.objects.get(id=id, user=request.user)
@@ -103,3 +113,36 @@ def edit_CompanyBranch(request, id):
     else:
         form = CompanyBranch_Form(instance=branch)
     return render(request, 'update/edit_CompanyBranch.html',{'form':form})
+
+
+# Delete CompanyBranch 
+@login_required
+def delete_CompanyBranch(request, id):
+    branch = CompanyBranch.objects.get(id=id, user=request.user)
+    branch.delete()
+    return redirect('company:branches')
+
+
+
+@login_required
+def CompanyBranchs(request):
+    companybranch = CompanyBranch.objects.filter(user=request.user)
+    paginator = Paginator(companybranch,25)
+    page_number = request.GET.get('page')
+    page_pbj = paginator.get_page(page_number)
+    return render(request,'CompanyBranchs.html', {'branch':page_pbj})
+
+
+
+
+
+        
+    
+
+        
+
+
+
+
+
+
