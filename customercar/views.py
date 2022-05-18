@@ -23,3 +23,18 @@ def new_customercar(request):
         form.fields['branch'].queryset = CompanyBranch.objects.filter(user=request.user)
         form.fields['employee'].queryset = Employee.objects.filter(user=request.user)
     return render(request, 'new/customercar.html',{'form':form})
+
+@login_required
+def new_carpart(request):
+    if request.method=='POST':
+        form = CarPart_Form(request.POST, request.FILES)
+        if form.is_valid():
+            car = form.save(commit=False)
+            car.user = request.user
+            car.save()
+            # return redirect(reverse(''))
+
+    else:
+        form = CarPart_Form()
+        form.fields['customer_car'].queryset = CustomerCar.objects.filter(user=request.user)
+    return render(request, 'new/carpart.html',{'form':form})
