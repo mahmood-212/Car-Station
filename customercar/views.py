@@ -55,3 +55,19 @@ def edit_customercar(request, id):
         form.fields['branch'].queryset = CompanyBranch.objects.filter(user=request.user)
         form.fields['employee'].queryset = Employee.objects.filter(user=request.user)
     return render(request, 'update/edit_customercar.html',{'form':form})
+
+@login_required
+def edit_carpart(request,id):
+    car_part = CarPart.objects.get(id=id, user=request.user)
+    if request.method=='POST':
+        form = CarPart_Form(request.POST, request.FILES,instance=car_part)
+        if form.is_valid():
+            part = form.save(commit=False)
+            part.user = request.user
+            part.save()
+            # return redirect(reverse(''))
+
+    else:
+        form = CarPart_Form(instance=car_part)
+        form.fields['customer_car'].queryset = CustomerCar.objects.filter(user=request.user)
+    return render(request, 'update/carpart.html',{'form':form})
