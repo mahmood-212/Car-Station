@@ -31,7 +31,8 @@ class CompanyBranch(models.Model):
     class Meta():
         verbose_name = 'الفرع'
         verbose_name_plural = 'الفروع'
-
+    def get_company(self):
+        return int(self.branch_name.id)
     def __str__(self):
         return self.branch_name
 
