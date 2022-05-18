@@ -54,18 +54,20 @@ def CompanyBranch_detail(request, id):
     CompanyBranch_detail = CompanyBranch.objects.filter(id=id, user=request.user)
     return render(request, 'CompanyBranch_detail.html', context={'CompanyBranch':CompanyBranch_detail})
 @login_required
-def new_CompanyBranch(request):
+def new_CompanyBranch(request, id):
+    company = Company.objects.filter(id=id, user=request.user)
     if request.method=='POST':
         form = CompanyBranch_Form(request.POST)
         if form.is_valid():
             CompBranch = form.save(commit=False)
             CompBranch.user = request.user
+            CompBranch.company_name = company
             CompBranch.save()
             return redirect(reverse('company:CompanyBranchs'))
 
     else:
         form = CompanyBranch_Form()
-        form.fields['company_name'].queryset = Company.objects.filter(user=request.user)
+        # form.fields['company_name'].queryset = Company.objects.filter(user=request.user)
     return render(request, 'new/CompanyBranch_Form.html',{'form':form})
 
 @login_required
