@@ -4,25 +4,32 @@
  <div class="container mt-5">
     {{request.user}}/{{request.user.id}}
     <br>
-    {% for company1  in company %}
+    {% for company  in company %}
     
-        {{company1.company_name}}
+        {{company.company_name}}
         <br>
-        {{company1.company_phone}}
+        {{company.company_phone}}
         <br>
-        {{company1.company_city}}
+        {{company.company_city}}
         <br>
-        {{company1.company_address}}
+        {{company.company_address}}
         <br>
-        {{company1.company_name}}
+        {{company.company_name}}
         <br>
-        {{company1.company_code}}
+        {{company.company_code}}
         <br>
-        {{company1.company_logo}}
+        {{company.company_logo}}
         <br>
-        <a href="{% url 'company:company_update' id=company1.id %}">Update</a>
-        <a href="{% url 'company:company_delete' id=company1.id %}">Delete</a>
+        <a href="{% url 'company:company_update' id=company.id %}">Update</a>
+        <a href="{% url 'company:company_delete' id=company.id %}">Delete</a>
+        <a href="{% url 'company:new_CompanyBranch' company_id=company.id %}">اضف فرعا</a>
+        <br>
     {% endfor %}
-   
+    <h3>الافرع</h3>
+    {% for branches in branches %}
+        {{branches.branch_name}}
+        <a href="{% url 'company:edit_branch' branches.id %}">تعديل</a>
+        <a href="{% url 'company:delete_CompanyBranch' branches.id %}">حذف</a>
+    {% endfor %}
 </div>
 </html>

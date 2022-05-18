@@ -16,6 +16,8 @@
         {{CompanyBranch.branch_city}}
         <br>
         {{CompanyBranch.branch_address}}
+        <a href="{% url 'company:edit_branch' CompanyBranch.id %}">تعديل</a>
+        <a href="{% url 'company:delete_CompanyBranch' CompanyBranch.id %}">حذف</a>
     {% endfor %}
 </div>
 </html>
