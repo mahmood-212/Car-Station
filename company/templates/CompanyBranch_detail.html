@@ -3,6 +3,8 @@
 <link rel="stylesheet" href="{% static 'css/bootstrap.rtl.css' %}">
  <div class="container mt-5">
     {% for CompanyBranch  in CompanyBranch %}
+        {% comment %} {{CompanyBranch.id}} {% endcomment %}
+        <br>
         {{CompanyBranch.company_name}}
         <br>
         {{CompanyBranch.branch_name}}

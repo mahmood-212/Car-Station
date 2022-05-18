@@ -3,7 +3,16 @@ from django.contrib.auth.decorators import login_required
 from .forms import Company_Form,CompanyBranch_Form
 from .models import Company,CompanyBranch
 from django.urls import reverse
+from django.core.paginator import Paginator
+
 # Create your views here.
+@login_required
+def CompanyBranchs(request):
+    companybranch = CompanyBranch.objects.filter(user=request.user)
+    paginator = Paginator(companybranch,25)
+    page_number = request.GET.get('page')
+    page_pbj = paginator.get_page(page_number)
+    return render(request,'CompanyBranchs.html', {'branch':page_pbj})
 @login_required
 def new_Company(request):
     if request.method=='POST':
@@ -65,9 +74,8 @@ def company_details(request):
     return render(request, 'company_details.html', {'company':company})
 
 
-
-
-
-
-
-
+@login_required
+def delete_CompanyBranch(request, id):
+    branch = CompanyBranch.objects.get(id=id, user=request.user)
+    branch.delete()
+    return redirect('company:CompanyBranchs')
