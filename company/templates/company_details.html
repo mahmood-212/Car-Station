@@ -2,8 +2,11 @@
 <html dir="rtl" lang="ar">
 <link rel="stylesheet" href="{% static 'css/bootstrap.rtl.css' %}">
  <div class="container mt-5">
+    {{request.user}}/{{request.user.id}}
+    <br>
     {% for company1  in company %}
-        {{company1.company_name}}\
+    
+        {{company1.company_name}}
         <br>
         {{company1.company_phone}}
         <br>
@@ -17,7 +20,9 @@
         <br>
         {{company1.company_logo}}
         <br>
-
+        <a href="{% url 'company:company_update' id=company1.id %}">Update</a>
+        <a href="{% url 'company:company_delete' id=company1.id %}">Delete</a>
     {% endfor %}
+   
 </div>
 </html>

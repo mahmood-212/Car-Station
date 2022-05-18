@@ -17,6 +17,29 @@ def new_Company(request):
     else:
         form = Company_Form()
     return render(request, 'new/Company_Form.html',{'form':form})
+
+@login_required
+def company_update(request, id):
+    company = get_object_or_404(Company, id=id, user=request.user)
+
+    if request.method == "POST":
+        form = Company_Form(request.POST, instance=company)
+        if form.is_valid():
+            company1 = form.save(commit=False)
+            company1.user = request.user
+            company1.save()
+        return redirect('company:company_details', id=company.id)
+    else:
+        form = Company_Form(instance=company)
+    return render(request, 'company_edit.html', {'form':form})
+        
+    
+@login_required
+def company_delete(request, id):
+    company = get_object_or_404(Company, id=id)
+    company.delete()
+    return redirect('company:new_Company')
+        
 @login_required
 def CompanyBranch_detail(request, id):
     CompanyBranch_detail = CompanyBranch.objects.filter(id=id, user=request.user)
@@ -38,8 +61,13 @@ def new_CompanyBranch(request):
 
 @login_required
 def company_details(request):
-    company = Company.objects.all()
-
+    company = Company.objects.filter(user=request.user)
     return render(request, 'company_details.html', {'company':company})
+
+
+
+
+
+
 
 
