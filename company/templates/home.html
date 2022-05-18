@@ -1,0 +1,18 @@
+{% load static %}
+<html dir="rtl" lang="ar">
+<link rel="stylesheet" href="{% static 'css/bootstrap.rtl.css' %}">
+ <div class="container mt-5">
+    {{request.user}}/{{request.user.id}}
+    <br>
+    {% if company %}
+
+    
+    {% for company1 in company%}
+       <a href="{% url 'company:company_details' %}">{{company1.company_name}}</a> 
+    {% endfor %}
+    {% else %}
+    <a href="{% url 'company:new_Company' %}">اضف الشركة</a>
+    
+    {% endif %}
+</div>
+</html>

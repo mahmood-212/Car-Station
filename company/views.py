@@ -9,7 +9,8 @@ from django.core.paginator import Paginator
 @login_required
 def home(request):
     company = Company.objects.filter(user=request.user)
-    return render(request,'CompanyBranchs.html', {'branch':company})
+    print(f"{company} ########################")
+    return render(request,'home.html', {'company':company})
 
 @login_required
 def CompanyBranchs(request):
