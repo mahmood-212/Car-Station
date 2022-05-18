@@ -86,7 +86,7 @@ def company_details(request):
 def delete_CompanyBranch(request, id):
     branch = CompanyBranch.objects.get(id=id, user=request.user)
     branch.delete()
-    return redirect('company:CompanyBranchs')
+    return redirect('company:branches')
 
 @login_required
 def edit_CompanyBranch(request, id):
@@ -97,7 +97,7 @@ def edit_CompanyBranch(request, id):
             myform = form.save(commit=False)
             myform.user = request.user
             myform.save()
-            return redirect(reverse('company:CompanyBranchs'))
+            return redirect(reverse('company:branches'))
 
     else:
         form = CompanyBranch_Form(instance=branch)
