@@ -1,15 +1,12 @@
 from django.urls import path
-<<<<<<< HEAD
-from .views import new_Company,new_CompanyBranch, company_details, CompanyBranch_detail, company_update, company_delete,delete_CompanyBranch
+from .views import CompanyBranchs,new_Company,new_CompanyBranch, company_details, CompanyBranch_detail, company_update, company_delete,delete_CompanyBranch,edit_CompanyBranch
 
-=======
-from .views import  CompanyBranchs,new_Company,new_CompanyBranch, company_details,delete_CompanyBranch,CompanyBranch_detail,edit_CompanyBranch
-# CompanyBranch_detail
->>>>>>> 21e7cad2571c5ad3da3eb798e23ad11ebc9f1537
-app_name='accounts'
+
+app_name='company'
 urlpatterns = [
     path('add_company/', new_Company, name="new_Company"),
     path('companybranch_detail/<int:id>', CompanyBranch_detail, name="CompanyBranch_detail"),
+    path('branches',CompanyBranchs,name='branches'),
     path('edit_branch/<int:id>', edit_CompanyBranch, name="edit_branch"),
     path('<int:id>/add_CompanyBranch/', new_CompanyBranch, name="new_CompanyBranch"),
     path('delete_companybranch/<int:id>/', delete_CompanyBranch, name="delete_CompanyBranch"),
