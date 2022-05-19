@@ -1,4 +1,5 @@
-from django.shortcuts import render, get_object_or_404
+from urllib import request
+from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .forms import CustomerCar_Form,CarPart_Form
 from .models import CustomerCar,CarPart
@@ -6,7 +7,16 @@ from django.urls import reverse
 from django.core.paginator import Paginator
 from employee.models import Employee
 from company.models import CompanyBranch
+from django.views.generic import ListView
 # Create your views here.
+
+@login_required
+def CustomerCar_list(request):
+    customer_car = CustomerCar.objects.filter(user=request.user)
+    paginator = Paginator(customer_car,25)
+    page_number = request.GET.get('page')
+    page_pbj = paginator.get_page(page_number)
+    return render(request,'CustomerCar_list.html',{'customer_car':page_pbj})
 
 @login_required
 def new_customercar(request):
@@ -16,7 +26,7 @@ def new_customercar(request):
             car = form.save(commit=False)
             car.user = request.user
             car.save()
-            # return redirect(reverse(''))
+            return redirect(reverse('customer:customercar_list'))
 
     else:
         form = CustomerCar_Form()
@@ -32,7 +42,7 @@ def new_carpart(request):
             car = form.save(commit=False)
             car.user = request.user
             car.save()
-            # return redirect(reverse(''))
+            # return redirect(reverse('customer:customercar_list'))
 
     else:
         form = CarPart_Form()
@@ -48,7 +58,7 @@ def edit_customercar(request, id):
             car = form.save(commit=False)
             car.user = request.user
             car.save()
-            # return redirect(reverse('company:branches'))
+            return redirect(reverse('customer:customercar_list'))
 
     else:
         form = CustomerCar_Form(instance=customer_car)
@@ -71,3 +81,8 @@ def edit_carpart(request,id):
         form = CarPart_Form(instance=car_part)
         form.fields['customer_car'].queryset = CustomerCar.objects.filter(user=request.user)
     return render(request, 'update/carpart.html',{'form':form})
+@login_required
+def delete_CustomerCar(request, id):
+    customer_car = CustomerCar.objects.get(id=id, user=request.user)
+    customer_car.delete()
+    return redirect('customer:customercar_list')

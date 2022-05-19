@@ -1,0 +1,6 @@
+{% for customer_car in customer_car %}
+    {{customer_car.owner_car_name}}
+    <a href="{% url 'customer:edit_customercar' customer_car.id %}">update</a>
+    {% comment %} <a href="{% url 'customer:new_customercar' %}">delte</a> {% endcomment %}
+    <br>
+{% endfor %}

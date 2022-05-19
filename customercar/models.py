@@ -1,3 +1,4 @@
+from venv import create
 from django.db import models
 from employee.models import Employee
 from company.models import CompanyBranch
@@ -6,17 +7,18 @@ from django.contrib.auth.models import User
 
 class CustomerCar(models.Model):
     user = models.ForeignKey(User,verbose_name=("المستخدم"), on_delete=models.CASCADE)
-    employee = models.ForeignKey(Employee, related_name='emplyees', verbose_name="اسم الموظف", on_delete=models.CASCADE)
-    branch = models.ForeignKey(CompanyBranch, related_name='branches', verbose_name="اسم الفرع", on_delete=models.CASCADE)
-    owner_car_name = models.CharField(max_length=255, verbose_name="اسم مالك السيارة", blank=True, null=True)
+    employee = models.ForeignKey(Employee, related_name='emplyees', verbose_name="اسم الموظف", on_delete=models.CASCADE, blank=True, null=True)
+    branch = models.ForeignKey(CompanyBranch, related_name='branches', verbose_name="اسم الفرع", on_delete=models.CASCADE, blank=True, null=True)
+    owner_car_name = models.CharField(max_length=255, verbose_name="اسم مالك السيارة")
     owner_car_phone = models.IntegerField(verbose_name="رقم هاتف المالك", blank=True, null=True)
     car_company = models.CharField(max_length=255, verbose_name="ماركت السيارة",  blank=True, null=True)
     owner_identity = models.IntegerField(blank=True, verbose_name="رقم هوية المالك", null=True)
     car_plate = models.CharField(max_length=255, verbose_name="رقم اللوحة", blank=True, null=True)
     car_color = models.CharField(max_length=255, verbose_name="لون السيارة", blank=True, null=True)
     date_entery = models.DateTimeField(auto_now=True, verbose_name="تاريخ استلام المركبة")
-    car_under_process = models.BooleanField(default=True, verbose_name="السيارة في الصيانة", blank=True, null=True)
-    car_ready = models.BooleanField(default=False, verbose_name="السيارة جاهزه للاستلام", blank=True, null=True)
+    car_under_process = models.BooleanField(default=True, verbose_name="السيارة في الصيانة")
+    car_ready = models.BooleanField(default=False, verbose_name="السيارة جاهزه للاستلام")
+    date = models.DateTimeField(auto_now_add=True,blank=True,null=True)
 
     class Meta():
         verbose_name = 'سيارة العميل'
@@ -29,8 +31,8 @@ class CustomerCar(models.Model):
 class CarPart(models.Model):
     user = models.ForeignKey(User,verbose_name=("المستخدم"), on_delete=models.CASCADE)
     customer_car = models.ForeignKey(CustomerCar, related_name='customercar', verbose_name=" رقم السيارة العميل", on_delete=models.CASCADE)
-    part_name = models.CharField(max_length=255,  verbose_name=" اسم القطعة الغيار", blank=True, null=True)
-    part_price = models.IntegerField(verbose_name=" سعر قطعة الغيار", blank=True, null=True)
+    part_name = models.CharField(max_length=255,  verbose_name=" اسم القطعة الغيار")
+    part_price = models.IntegerField(verbose_name=" سعر قطعة الغيار")
     part_invoice = models.ImageField(verbose_name=" ارفاق صورة الفواتير قطع الغيار", blank=True, null=True)
 
     class Meta():

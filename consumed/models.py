@@ -18,7 +18,7 @@ class RequiremtsBranch(models.Model):
         verbose_name_plural = 'احتياجات الفروع'
 
     def __str__(self):
-        return f"{self.employee.employee_name} - {self.things_need_name}"
+        return str(f"{self.employee.employee_name} - {self.things_need_name}")
 
 class OutCome(models.Model):
     user = models.ForeignKey(User,verbose_name=("المستخدم"), on_delete=models.CASCADE)
@@ -30,7 +30,7 @@ class OutCome(models.Model):
         verbose_name_plural = 'مصاريف الفروع'
 
     def __str__(self):
-        return f"{self.requiremtsbranch}"
+        return str(self.requiremtsbranch)
 
 class InCome(models.Model):
     user = models.ForeignKey(User,verbose_name=("المستخدم"), on_delete=models.CASCADE)
@@ -41,4 +41,4 @@ class InCome(models.Model):
         verbose_name_plural = 'دخل الفروع'
 
     def __str__(self):
-        return f"{self.invoice}"
+        return str(self.invoice)
