@@ -1,0 +1,34 @@
+{% load static %}
+{% load bootstrap4  %}
+<html dir="rtl" lang="ar">
+<link rel="stylesheet" href="{% static 'css/bootstrap.rtl.css' %}">
+ <div class="container mt-5">
+     {{request.user}} / {{request.user.id}}
+     <br>
+     
+     <button>
+        <a  href="{% url 'employee:add_employee' %}" >Add Employee</a>
+    </button>
+
+     <br>
+    {% for employee in employees %}
+        {{employee.employee_name}}
+        <br>
+        {{employee.branch_name}}
+        <br>
+        {{employee.employee_phone}}
+        <br>
+        {{employee.employee_identity}}
+        <br>
+        {{employee.employee_email}}
+        <br>
+        {{emplyee.employee_salary}}
+        <br>
+       
+        <a href="{% url 'employee:update_emplyee' id=employee.id %}">Edit</a> / 
+        <a href="{% url 'employee:remove_employee' id=employee.id%}">Delete</a>
+    {%endfor%}
+
+    
+</div>
+</html>

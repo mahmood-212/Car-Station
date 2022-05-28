@@ -1,0 +1,16 @@
+{% load static %}
+{% load bootstrap4  %}
+<html dir="rtl" lang="ar">
+<link rel="stylesheet" href="{% static 'css/bootstrap.rtl.css' %}">
+ <div class="container mt-5">
+     {{request.user}} / {{request.user.id}}
+     <br>
+     <form action="" method="POST">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+        {% buttons %}
+            <button type="submit" class="btn btn-primary mt-3">إضاف</button>
+        {% endbuttons %}
+    </form>
+</div>
+</html>

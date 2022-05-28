@@ -22,6 +22,7 @@ urlpatterns = [
     path('accounts/',include('accounts.urls',namespace='accounts')),
     path('company/',include('company.urls',namespace='company')),
     path('customer/',include('customercar.urls',namespace='customer')),
+    path('employee/', include('employee.urls', namespace='employee')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
