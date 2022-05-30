@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.core.paginator import Paginator
 from employee.models import Employee
 from company.models import CompanyBranch
-from .filter import CustomerCar_Filter
+from .filter import CustomerCar_Filter,CarPart_Filter
 
 # Create your views here.
 
@@ -18,7 +18,22 @@ def CustomerCar_list(request):
     page_number = request.GET.get('page')
     page_pbj = paginator.get_page(page_number)
     return render(request,'CustomerCar_list.html',{'customer_car':page_pbj,'count':customer_car.count(),'filter':customer_car_filter})
-
+# sustomer car details
+def CustomerCar_details(request,id):
+    customer_car = get_object_or_404(CustomerCar,id=id,user=request.user)
+    return render(request,'CustomerCar_details.html',{'customer_car':customer_car})
+# car part
+def CarPart_list(request):
+    car_part = CarPart.objects.filter(user=request.user).order_by('-date')
+    car_part_filter = CarPart_Filter(request.GET, queryset=car_part,request=request)
+    paginator = Paginator(car_part_filter.qs, 25)
+    page_number = request.GET.get('page')
+    page_pbj = paginator.get_page(page_number)
+    return render(request,'CarPart_list.html',{'car_part':page_pbj,'filter':car_part_filter,'count':car_part.count()})
+# car part details
+def CarPart_details(request,id):
+    car_part = get_object_or_404(CarPart,id=id)
+    return render(request,'CarPart_details.html',{'car_part':car_part})
 @login_required
 def new_customercar(request):
     if request.method=='POST':
@@ -87,3 +102,9 @@ def delete_CustomerCar(request, id):
     customer_car = CustomerCar.objects.get(id=id, user=request.user)
     customer_car.delete()
     return redirect('customer:customercar_list')
+# delte car part
+@login_required
+def delete_CarPart(request, id):
+    car_part = CarPart.objects.get(id=id, user=request.user)
+    car_part.delete()
+    return redirect('customer:carpart_list')
