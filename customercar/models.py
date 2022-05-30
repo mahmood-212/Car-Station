@@ -1,4 +1,4 @@
-from venv import create
+from datetime import datetime
 from django.db import models
 from employee.models import Employee
 from company.models import CompanyBranch
@@ -18,7 +18,7 @@ class CustomerCar(models.Model):
     date_entery = models.DateTimeField(auto_now=True, verbose_name="تاريخ استلام المركبة")
     car_under_process = models.BooleanField(default=True, verbose_name="السيارة في الصيانة")
     car_ready = models.BooleanField(default=False, verbose_name="السيارة جاهزه للاستلام")
-    date = models.DateTimeField(auto_now_add=True,blank=True,null=True)
+    date = models.DateTimeField(auto_now=True,blank=True,null=True)
 
     class Meta():
         verbose_name = 'سيارة العميل'
@@ -26,6 +26,10 @@ class CustomerCar(models.Model):
     def  __str__(self):
         return f"{self.owner_car_name} - {self.car_plate}"
 
+    def save(self, *args, **kwargs):
+        if self.date == None:
+            self.date = datetime.now()
+        super().save(*args, **kwargs)
 
 
 class CarPart(models.Model):

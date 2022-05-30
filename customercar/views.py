@@ -1,4 +1,3 @@
-from urllib import request
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .forms import CustomerCar_Form,CarPart_Form
@@ -7,16 +6,18 @@ from django.urls import reverse
 from django.core.paginator import Paginator
 from employee.models import Employee
 from company.models import CompanyBranch
-from django.views.generic import ListView
+from .filter import CustomerCar_Filter
+
 # Create your views here.
 
 @login_required
 def CustomerCar_list(request):
-    customer_car = CustomerCar.objects.filter(user=request.user)
-    paginator = Paginator(customer_car,25)
+    customer_car = CustomerCar.objects.filter(user=request.user).order_by('-date')
+    customer_car_filter = CustomerCar_Filter(request.GET, queryset=customer_car,request=request)
+    paginator = Paginator(customer_car_filter.qs, 25)
     page_number = request.GET.get('page')
     page_pbj = paginator.get_page(page_number)
-    return render(request,'CustomerCar_list.html',{'customer_car':page_pbj})
+    return render(request,'CustomerCar_list.html',{'customer_car':page_pbj,'count':customer_car.count(),'filter':customer_car_filter})
 
 @login_required
 def new_customercar(request):

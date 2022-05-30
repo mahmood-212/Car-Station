@@ -1,6 +1,14 @@
 {% for customer_car in customer_car %}
+customer_car
+<div class="row">
+    <form class="col-6">
+        {% csrf_token %}
+        <table>{{filter.form.as_table}}</table>
+            <button type="submit" class="btn btn-primary ml-3 mt-3">بحث</button>
+  </form>
     {{customer_car.owner_car_name}}
     <a href="{% url 'customer:edit_customercar' customer_car.id %}">update</a>
-    {% comment %} <a href="{% url 'customer:new_customercar' %}">delte</a> {% endcomment %}
+    <a href="{% url 'customer:new_customercar' %}">delte</a> 
     <br>
 {% endfor %}
+sssssssssssssss
