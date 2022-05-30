@@ -1,0 +1,7 @@
+<form method='POST'>
+<table>{{filter.form.as_table}}</table>
+</form>
+{% for part in car_part %}
+    <a href="{% url 'customer:CarPart_details' part.id %}">{{part}}</a>
+    <br>
+{% endfor %}

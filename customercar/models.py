@@ -38,7 +38,7 @@ class CarPart(models.Model):
     part_name = models.CharField(max_length=255,  verbose_name=" اسم القطعة الغيار")
     part_price = models.IntegerField(verbose_name=" سعر قطعة الغيار")
     part_invoice = models.ImageField(verbose_name=" ارفاق صورة الفواتير قطع الغيار", blank=True, null=True)
-
+    date = models.DateField(auto_now=True,blank=True,null=True)
     class Meta():
         verbose_name = 'قطع غيار السيارة'
         verbose_name_plural = 'قطع غيار السيارات'
