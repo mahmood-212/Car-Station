@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date, datetime
 from django.db import models
 from employee.models import Employee
 from company.models import CompanyBranch
@@ -29,6 +29,11 @@ class CustomerCar(models.Model):
     def save(self, *args, **kwargs):
         if self.date == None:
             self.date = datetime.now()
+        # how to run this function in all time
+        if self.date_entery == datetime.now():
+            self.car_ready = True
+        if self.car_under_process == False:
+            self.car_ready = True
         super().save(*args, **kwargs)
 
 

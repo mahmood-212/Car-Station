@@ -17,7 +17,7 @@ def CustomerCar_list(request):
     paginator = Paginator(customer_car_filter.qs, 25)
     page_number = request.GET.get('page')
     page_pbj = paginator.get_page(page_number)
-    return render(request,'CustomerCar_list.html',{'customer_car':customer_car,'count':customer_car.count(),'filter':customer_car_filter})
+    return render(request,'CustomerCar_list.html',{'customer_car':page_pbj,'count':customer_car.count(),'filter':customer_car_filter})
 # sustomer car details
 def CustomerCar_details(request,id):
     customer_car = get_object_or_404(CustomerCar,id=id,user=request.user)
